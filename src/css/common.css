@@ -154,6 +154,8 @@ button {
 
 .create-notes-modal {
       text-align: center;
+      font-size: large;
+      font-weight: 500;
       background-color: rgb(188, 199, 199);
       background-image: url('../images/wood-1794340.jpg');
       background-position: 50% 50%;
@@ -166,7 +168,7 @@ button {
     margin: 0px 0px 10px 0px;
       color: #000000;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 14px;
       line-height: 1.36;
       letter-spacing: 0.06em;
 }
