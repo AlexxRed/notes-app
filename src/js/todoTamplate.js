@@ -1,4 +1,4 @@
-export function itemTemplate ({ id, name, created, category, dates, content }) {
+export function itemTemplate({ id, name, created, category, dates, content }) {
     return `<li data-id=${id} class="list-group-item list-group-item-action">
     <div id="todo-icon" class="todo-icon">O</div>
     <p id="name" class="todo-name">${name}</p>
@@ -11,3 +11,7 @@ export function itemTemplate ({ id, name, created, category, dates, content }) {
     <button id="delete" type="button" class="btn btn-danger"><b>X</b></button>
 </li>`;
 }
+
+        // <svg class="contacts-icon" width="16" height="12">
+        //     <use href="../images/sprite.svg#icon-delete"></use>
+        // </svg>  
