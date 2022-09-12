@@ -1,14 +1,45 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page title</title>
-    <link rel="stylesheet" href="./sass/index.scss" />
-    <script type="module" src="./index.js"></script>
+    <title>To DO List</title>
+    <link rel="stylesheet" href="css/common.css" />
   </head>
   <body>
-    <!-- ❗️❗️❗️ Add partials like so for every page -->
-    <include src="./partials/example.html"></include>
+    <div class="header-style"></div>
+    <div class="container">
+            <h1 class="main-title">Notes</h1>
+
+        <div class="list-wrapper">
+          <ul class="list-group">
+
+          </ul>
+        </div>
+            <form>
+              <div class="form-group">
+                <label class="form-label">
+                  <span class="pretext">Add new todo</span>
+                  <input type="text" name="text" class="form-control" placeholder="Enter your notes" />
+                </label>
+              </div>
+              <div class="input-btns">
+                <button type="submit" class="btn btn-primary button-29">+ Add note</button>
+                <button type="button" class="btn btn-success button-29">Print</button>
+              </div>
+            </form>
+        
+            
+                    <div class="notes-statistic">
+                      <ul class="notes-statistic-list">
+                    
+                      </ul>
+        
+      <footer class="footer-style"></footer>
+    </div>
+    
+    
+    
+    <script type="module" src="js/index.js"></script>
   </body>
 </html>
