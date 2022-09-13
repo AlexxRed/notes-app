@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { getRefs } from './getRefs';
 import { createNotes } from './createNoteForm';
 import { deleteModal } from './deleteNoteForm';
+import { editNoteForm } from './editNoteForm'
 import { itemTemplate } from './todoTamplate';
 import { archiveItemTemplate } from './archiveItemTemplate';
 import { statisticItemTemplate } from './statisticItemTemplate';
@@ -150,6 +151,24 @@ function archiveNote(id) {
     })
 }
 
+// ================== edit note ==================
+function editNote(id) {
+    currentId = id
+    const note = todos.find(note => note.id === id);
+    const form = editNoteForm(note);
+    form.show()
+    const editNotes = document.querySelector('.create-notes-form');
+    const cancel = document.querySelector('.cancel-create');
+    
+    function handleSubm(e) {
+        onSubmitEditNotes(e);
+        form.close()
+    }
+
+    editNotes.addEventListener('submit',  handleSubm);
+    cancel.addEventListener('click', () => form.close());
+}
+
 // ================== unarchive notes ==================
 function unarchiveNote(id) {
     archive.find((note) => {
@@ -190,7 +209,8 @@ function onToDoElement(e) {
                 break;
             case 'edit':
                 editNote(id);
-                break;        }
+                break;
+        }
         startRenderToDo();
     };
 }
@@ -229,6 +249,30 @@ function onSubmitNotes(e) {
     startRenderToDo();
     toastr.info(`Your notes created`);
 
+}
+
+// ================== edit notes ==================
+function onSubmitEditNotes(e) {
+    e.preventDefault();
+    const createNote = document.querySelector('.create-notes-form');
+
+        const newNotes = {
+        category: e.target.category.value,
+        name: e.target.name.value,
+        content: e.target.content.value,
+        dates: moment(e.target.dates.value).subtract(10, 'days').calendar() ,
+        created: moment().format('MMMM DD, YYYY'),
+        id: uuidv4(),
+    };
+
+    const note = todos.find(note => note.id === currentId);
+    editNoteForm(note).close();
+
+    todos.push(newNotes);
+    createNote.reset();
+    todos = todos.filter((todo) => todo.id !== currentId);
+    startRenderToDo();
+    toastr.info(`The note ${newNotes.name} has been changed`);
 }
 
 // ================== statistic loading ==================
