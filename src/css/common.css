@@ -51,7 +51,7 @@ input {
 
 .main-title {
   margin-top: 15px;
-  color: #afa5a5;
+  color: #857777;
 }
 
 .pretext {
@@ -116,7 +116,7 @@ ul {
 
 .list-group-item {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   /* height: 50px; */
   border: 1px solid rgba(44, 119, 78, 0.747);
@@ -154,6 +154,8 @@ button {
 
 .create-notes-modal {
       text-align: center;
+      font-size: large;
+      font-weight: 500;
       background-color: rgb(188, 199, 199);
       background-image: url('../images/wood-1794340.jpg');
       background-position: 50% 50%;
@@ -166,7 +168,7 @@ button {
     margin: 0px 0px 10px 0px;
       color: #000000;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 14px;
       line-height: 1.36;
       letter-spacing: 0.06em;
 }
@@ -294,7 +296,45 @@ button {
   position: relative;
 }
 
+.icons-button{
+  background-color: transparent;
+  border: transparent;
+}
 
+.icons-button:hover,
+.icons-button:focus {
+  fill: rgb(167, 76, 76);
+}
+
+.notes-statistic-header {
+  display: flex;
+  justify-content: space-around;
+  background-color: gray;
+}
+
+.notes-statistic-text {
+  display: block;
+  margin-left: 15px;
+}
+
+.note-category-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 175px;
+}
+
+.note-icon{
+  display: flex;
+  margin-right: 15px;
+}
+.note-category{
+  display: flex;
+}
+
+.arch{
+  justify-content: space-around;
+}
 
 
 /* .footer-style {

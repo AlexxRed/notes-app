@@ -2,7 +2,9 @@ export const getRefs = () => {
     return {
         form: document.querySelector('form'),
         todoList: document.querySelector('.list-group'),
-        print: document.querySelector('.btn.btn-success'),
-        addToDo: document.querySelector('.btn.btn-primary'),
+        createButton: document.querySelector('.btn.btn-primary'),
+        archiveList: document.querySelector('.notes-archive-list'),
+        statisticList: document.querySelector('.notes-statistic-list'),
+        unarchiveList: document.querySelector('.notes-archive-list'),
     }
 }
