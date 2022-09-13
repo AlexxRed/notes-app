@@ -306,7 +306,35 @@ button {
   fill: rgb(167, 76, 76);
 }
 
+.notes-statistic-header {
+  display: flex;
+  justify-content: space-around;
+  background-color: gray;
+}
 
+.notes-statistic-text {
+  display: block;
+  margin-left: 15px;
+}
+
+.note-category-box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 175px;
+}
+
+.note-icon{
+  display: flex;
+  margin-right: 15px;
+}
+.note-category{
+  display: flex;
+}
+
+.arch{
+  justify-content: space-around;
+}
 
 
 /* .footer-style {

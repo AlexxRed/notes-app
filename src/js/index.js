@@ -71,10 +71,8 @@ function saveArchiveList() {
     localStorage.setItem('archive', JSON.stringify(archive));
 };
 
-
-
 // ================== data loading ==================
-function loadToDoList() {
+function loadNotesList() {
     try {
         todos = JSON.parse(localStorage.getItem('todos')) || notes;
         archive = JSON.parse(localStorage.getItem('archive')) || [];
@@ -228,7 +226,6 @@ function handleCreate() {
 function onSubmitNotes(e) {
     e.preventDefault();
     const createNote = document.querySelector('.create-notes-form');
-    // console.log([...data.entries()]);
     const newNotes = {
         category: e.target.category.value,
         name: e.target.name.value,
@@ -276,7 +273,6 @@ function onSubmitEditNotes(e) {
 }
 
 // ================== statistic loading ==================
-
 function allStatistic() {
     
     const totalIdeas = todos.filter(item => item.category === "Idea").length
@@ -310,15 +306,15 @@ function allStatistic() {
 }
 
 // ================== start program ==================
-function startRenderToDoList() {
-    loadToDoList()
+function startRenderNoteList() {
+    loadNotesList()
     refs.todoList.addEventListener('click', onToDoElement);
     refs.createButton.addEventListener('click', handleCreate);
     refs.unarchiveList.addEventListener('click', handleUnarchive);
     startRenderToDo();
 }
 
-startRenderToDoList();
+startRenderNoteList();
 toastr.info('Create your Note');
 
 
