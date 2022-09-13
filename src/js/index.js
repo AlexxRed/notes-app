@@ -244,7 +244,7 @@ function onSubmitNotes(e) {
     createNote.reset();
     createNotes.close();
     startRenderToDo();
-    toastr.info(`Your notes created`);
+    toastr.info(`Your note created`);
 
 }
 
