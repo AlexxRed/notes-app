@@ -3,6 +3,8 @@ import { getRefs } from './getRefs';
 import { createNotes } from './createNoteForm';
 import { deleteModal } from './deleteNoteForm';
 import { itemTemplate } from './todoTamplate';
+import { archiveItemTemplate } from './archiveItemTemplate';
+import { statisticItemTemplate } from './statisticItemTemplate';
 import { notes } from './notesTemplates';
 import toastr from 'toastr';
 import moment from 'moment';
@@ -68,6 +70,8 @@ function saveArchiveList() {
     localStorage.setItem('archive', JSON.stringify(archive));
 };
 
+
+
 // ================== data loading ==================
 function loadToDoList() {
     try {
@@ -76,6 +80,8 @@ function loadToDoList() {
     } catch (e) {
         toastr.error('Data not loaded');
     }
+
+    allStatistic();
 };
 
 // ================== render notes ==================
@@ -83,10 +89,32 @@ function startRenderToDo() {
     const markUpItems = todos.map((note) => {
         return itemTemplate(note);
     });
+
+    const archiveMarkUp = archive.map((note) => {
+        return archiveItemTemplate(note);
+    });
+
     refs.todoList.innerHTML = '';
     refs.todoList.insertAdjacentHTML('beforeend', markUpItems.join(''));
 
+    refs.archiveList.innerHTML = '';
+    refs.archiveList.insertAdjacentHTML('beforeend', archiveMarkUp.join(''));
+
     saveToDoList();
+    saveArchiveList();
+    allStatistic();
+};
+
+// ================== render statistic ==================
+function renderStatistic(statistic) {
+        const statisticMarkUp = statistic.map((item) => {
+        return statisticItemTemplate(item);
+    });
+    refs.statisticList.innerHTML = '';
+    refs.statisticList.insertAdjacentHTML('beforeend', statisticMarkUp.join(''));
+
+    saveToDoList();
+    saveArchiveList();
 };
 
 // ================== try delete ==================
@@ -110,8 +138,8 @@ function deleteToDo(id) {
     approveDelete.addEventListener('click', onApproveDeleteToDo);
 };
 
+// ================== archive notes ==================
 function archiveNote(id) {
-    console.log(id)
         todos.find((note) => {
         if (note.id === id) {
             archive.push(note);
@@ -120,6 +148,29 @@ function archiveNote(id) {
             saveArchiveList();
         }
     })
+}
+
+// ================== unarchive notes ==================
+function unarchiveNote(id) {
+    archive.find((note) => {
+        if (note.id === id) {
+            todos.push(note);
+            archive = archive.filter(note => note.id !== id);
+            startRenderToDo();
+            saveArchiveList();
+        }
+    })
+}
+
+// ================== click on archive elements ==================
+function handleUnarchive(e) {
+    const { id } = e.target.closest('li').dataset
+        if (e.target.nodeName === 'UL') {
+        return
+    }
+    if (e.target.id === 'unarchive') {
+        unarchiveNote(id);
+    }
 }
 
 
@@ -180,11 +231,46 @@ function onSubmitNotes(e) {
 
 }
 
+// ================== statistic loading ==================
+
+function allStatistic() {
+    
+    const totalIdeas = todos.filter(item => item.category === "Idea").length
+    const totalArciveIdeas = archive.filter(item => item.category === "Idea").length
+
+    const totalTasks = todos.filter(item => item.category === "Task").length
+    const totalArciveTasks = archive.filter(item => item.category === "Task").length
+
+    const totalThought = todos.filter(item => item.category === "Random Thought").length
+    const totalArciveThought = archive.filter(item => item.category === "Random Thought").length    
+    
+    const statistic = [
+        {
+            category: 'Idea',
+            active: totalIdeas,
+            archived: totalArciveIdeas
+        },
+        {
+            category: 'Task',
+            active: totalTasks,
+            archived: totalArciveTasks
+        },
+        {
+            category: 'Random Thought',
+            active: totalThought,
+            archived: totalArciveThought
+        }
+    ];
+
+    renderStatistic(statistic);
+}
+
 // ================== start program ==================
 function startRenderToDoList() {
     loadToDoList()
     refs.todoList.addEventListener('click', onToDoElement);
     refs.createButton.addEventListener('click', handleCreate);
+    refs.unarchiveList.addEventListener('click', handleUnarchive);
     startRenderToDo();
 }
 
