@@ -63,10 +63,16 @@ function saveToDoList() {
     localStorage.setItem('todos', JSON.stringify(todos));
 };
 
+// ================== save archive in local ==================
+function saveArchiveList() {
+    localStorage.setItem('archive', JSON.stringify(archive));
+};
+
 // ================== data loading ==================
 function loadToDoList() {
     try {
         todos = JSON.parse(localStorage.getItem('todos')) || notes;
+        archive = JSON.parse(localStorage.getItem('archive')) || [];
     } catch (e) {
         toastr.error('Data not loaded');
     }
@@ -104,28 +110,36 @@ function deleteToDo(id) {
     approveDelete.addEventListener('click', onApproveDeleteToDo);
 };
 
+function archiveNote(id) {
+    console.log(id)
+        todos.find((note) => {
+        if (note.id === id) {
+            archive.push(note);
+            todos = todos.filter(note => note.id !== id);
+            startRenderToDo();
+            saveArchiveList();
+        }
+    })
+}
+
 
 // ================== click on elements ==================
 function onToDoElement(e) {
-    console.log(e.target.nodeName);
-    console.log(e.target.id);
     if (e.target.nodeName === 'UL') {
         return
     }
     else {
         const { id } = e.target.closest('li').dataset
-        switch (e.target.nodeName) {
-            case 'BUTTON':
-            case 'B':
+        switch (e.target.id) {
+            case 'delete':
                 deleteToDo(id);
                 break;
-            case 'INPUT':
-            case 'LABEL':
-            case 'LI':
-            case 'SPAN':
-                toggleToDoCheck(id);
+            case 'archive':
+                archiveNote(id);
                 break;
-        }
+            case 'edit':
+                editNote(id);
+                break;        }
         startRenderToDo();
     };
 }
@@ -149,7 +163,7 @@ function onSubmitNotes(e) {
         name: e.target.name.value,
         content: e.target.content.value,
         dates: moment(e.target.dates.value).subtract(10, 'days').calendar() ,
-        created: moment().format('MMMM DD , YYYY'),
+        created: moment().format('MMMM DD, YYYY'),
         id: uuidv4(),
     };
 

@@ -116,7 +116,7 @@ ul {
 
 .list-group-item {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   /* height: 50px; */
   border: 1px solid rgba(44, 119, 78, 0.747);
@@ -294,6 +294,16 @@ button {
 
 .list-wrapper {
   position: relative;
+}
+
+.icons-button{
+  background-color: transparent;
+  border: transparent;
+}
+
+.icons-button:hover,
+.icons-button:focus {
+  fill: rgb(167, 76, 76);
 }
 
 
